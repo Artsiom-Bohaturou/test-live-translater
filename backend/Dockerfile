@@ -6,7 +6,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     LIVE_ASSISTANT_HOST=0.0.0.0 \
     LIVE_ASSISTANT_PORT=8765 \
     WHISPER_DEVICE=cpu \
-    WHISPER_COMPUTE_TYPE=int8
+    WHISPER_COMPUTE_TYPE=int8 \
+    HF_TOKEN=
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ffmpeg curl \

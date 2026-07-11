@@ -8,6 +8,7 @@ services:
       WHISPER_MODEL: ${WHISPER_MODEL:-small}
       WHISPER_DEVICE: ${WHISPER_DEVICE:-cpu}
       WHISPER_COMPUTE_TYPE: ${WHISPER_COMPUTE_TYPE:-int8}
+      HF_TOKEN: ${HF_TOKEN:-}
       OLLAMA_URL: http://ollama:11434/api/generate
       OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:7b}
       OLLAMA_TEMPERATURE: ${OLLAMA_TEMPERATURE:-0.2}
