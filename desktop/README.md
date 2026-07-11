@@ -37,7 +37,7 @@ live-assistant-desktop
 
 - Save settings into the repository `.env` file
 - Start or stop the Docker Compose services
-- Pull the selected Ollama model with the Compose retry helper, which is safer than direct `docker compose exec ollama ollama pull ...` after transient `Error: EOF` failures
+- Pull the selected Ollama model through the already-running Compose `ollama` service container with retries, which is safer after transient `Error: EOF` failures
 - List installed Ollama models
 - Run the backend health check
 - Copy the Chrome extension folder path for `chrome://extensions` → **Load unpacked**

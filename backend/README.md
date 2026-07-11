@@ -27,10 +27,10 @@ docker compose up --build
 Pull the default model into the Compose-managed Ollama volume with the retry helper:
 
 ```bash
-docker compose --profile tools run --rm ollama-pull
+python scripts/pull_ollama_model.py
 ```
 
-Use this helper instead of `docker compose exec ollama ollama pull ...`; it waits for Ollama readiness and retries transient `Error: EOF` pull failures.
+Use this helper instead of a one-shot manual pull; it still executes the pull inside the already-running Compose `ollama` service container, waits for Ollama readiness, and retries transient `Error: EOF` pull failures.
 
 Health check:
 

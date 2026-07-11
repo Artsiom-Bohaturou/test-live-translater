@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import queue
 import subprocess
+import sys
 import threading
 import tkinter as tk
 from pathlib import Path
@@ -155,7 +156,10 @@ class DesktopApp(tk.Tk):
             messagebox.showerror("Missing model", "Set OLLAMA_MODEL before pulling.")
             return
         self.save_env()
-        self._run(self._compose_command("run", "--rm", "ollama-pull"), f"Pulling {model} with retry helper")
+        command = [sys.executable, "scripts/pull_ollama_model.py", "--model", model]
+        if self.use_gpu.get():
+            command.append("--gpu")
+        self._run(command, f"Pulling {model} through running ollama service")
 
     def list_models(self) -> None:
         self._run(self._compose_command("exec", "ollama", "ollama", "list"), "Listing Ollama models")
