@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main>
+      <h1>Live Audio Assistant</h1>
+      <p id="status">Loading...</p>
+      <div class="actions">
+        <button id="start">Start capture</button>
+        <button id="stop">Stop</button>
+        <button id="ask">Ask about last 25s</button>
+      </div>
+      <section>
+        <h2>Transcript</h2>
+        <pre id="transcript"></pre>
+      </section>
+      <section>
+        <h2>Answer</h2>
+        <pre id="answer"></pre>
+      </section>
+      <a href="options.html" target="_blank">Options</a>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

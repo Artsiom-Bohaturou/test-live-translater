@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "live-assistant-desktop"
+version = "0.1.0"
+description = "Tkinter desktop manager for configuring and running the Live Tab Audio Assistant stack."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+live-assistant-desktop = "live_assistant_desktop.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["live_assistant_desktop"]

@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "live-assistant-backend"
+version = "0.1.0"
+description = "Local WebSocket backend for transcribing recent tab audio and streaming Ollama answers."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "aiohttp>=3.9",
+  "faster-whisper>=1.0",
+]
+
+[project.scripts]
+live-assistant-backend = "live_assistant.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/live_assistant"]

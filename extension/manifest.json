@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Live Tab Audio Assistant",
+  "version": "0.1.0",
+  "description": "Capture recent tab audio and ask a local Ollama assistant about it.",
+  "permissions": ["tabCapture", "storage", "offscreen", "activeTab"],
+  "host_permissions": ["ws://127.0.0.1:8765/*", "http://127.0.0.1:8765/*"],
+  "background": {"service_worker": "background.js"},
+  "action": {"default_popup": "popup.html", "default_title": "Live Audio Assistant"},
+  "options_page": "options.html",
+  "commands": {
+    "ask-last-audio": {
+      "suggested_key": {"default": "Ctrl+Shift+A"},
+      "description": "Ask AI about the last captured audio"
+    }
+  }
+}
