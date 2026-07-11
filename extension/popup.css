@@ -1,0 +1,11 @@
+body { width: 380px; margin: 0; font: 14px system-ui, sans-serif; color: #172033; background: #f7f8fb; }
+main { padding: 14px; }
+h1 { font-size: 18px; margin: 0 0 8px; }
+h2 { font-size: 13px; margin: 14px 0 6px; color: #4c5a70; }
+#status { min-height: 20px; color: #31507a; }
+.actions { display: grid; grid-template-columns: 1fr 0.7fr; gap: 8px; }
+#ask { grid-column: 1 / -1; }
+button { border: 0; border-radius: 8px; padding: 9px 10px; background: #3157d5; color: white; cursor: pointer; }
+button:hover { background: #2448ba; }
+pre { min-height: 70px; max-height: 160px; overflow: auto; white-space: pre-wrap; background: white; border: 1px solid #dfe4ee; border-radius: 8px; padding: 10px; }
+a { display: inline-block; margin-top: 10px; color: #3157d5; }
