@@ -24,11 +24,13 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Pull the default model into the Compose-managed Ollama container:
+Pull the default model into the Compose-managed Ollama volume with the retry helper:
 
 ```bash
-docker compose exec ollama ollama pull qwen2.5:7b
+docker compose --profile tools run --rm ollama-pull
 ```
+
+Use this helper instead of `docker compose exec ollama ollama pull ...`; it waits for Ollama readiness and retries transient `Error: EOF` pull failures.
 
 Health check:
 

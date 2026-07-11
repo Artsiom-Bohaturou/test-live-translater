@@ -80,15 +80,15 @@ This starts:
 - `backend` on `http://127.0.0.1:8765`
 - `ollama` on `http://127.0.0.1:11434`
 
-### 3. Pull the selected Ollama model
+### 3. Pull the selected Ollama model with retry
 
-In a second terminal:
+In a second terminal, use the Compose pull helper instead of `docker compose exec ollama ollama pull ...`:
 
 ```bash
-docker compose exec ollama ollama pull qwen2.5:7b
+docker compose --profile tools run --rm ollama-pull
 ```
 
-If you set a different `OLLAMA_MODEL`, pull that model instead.
+The helper waits for Ollama to become healthy and retries transient registry/network failures such as `Error: EOF`. If you set a different `OLLAMA_MODEL`, it pulls that model from `.env`.
 
 ### 4. Verify the backend is reachable
 
@@ -167,6 +167,7 @@ The extension defaults to `ws://127.0.0.1:8765/ws`. Backend defaults are documen
 - If you see `Warning: You are sending unauthenticated requests to the HF Hub`, set `HF_TOKEN` in `.env` or through the desktop GUI, then restart services.
 - If the popup says the backend is disconnected, confirm `docker compose ps` shows the backend running and `curl http://127.0.0.1:8765/api/health` returns `{"ok": true}`.
 - If answers fail but transcription works, confirm the Ollama model has been pulled with `docker compose exec ollama ollama list`.
+- If `docker compose exec ollama ollama pull qwen2.5:7b` fails with `Error: EOF`, run `docker compose --profile tools run --rm ollama-pull`; this uses the same Compose network, waits for the Ollama healthcheck, and retries the pull.
 - If captured tab audio becomes silent in your speakers, verify the extension is using the included offscreen capture path, which routes the captured stream back to `AudioContext.destination`.
 - If the extension says there is no buffered audio, click **Start capture**, wait a moment, and then trigger **Ask about last 25s**.
 

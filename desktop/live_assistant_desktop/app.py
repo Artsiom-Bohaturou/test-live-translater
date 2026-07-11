@@ -155,7 +155,7 @@ class DesktopApp(tk.Tk):
             messagebox.showerror("Missing model", "Set OLLAMA_MODEL before pulling.")
             return
         self.save_env()
-        self._run(self._compose_command("exec", "ollama", "ollama", "pull", model), f"Pulling {model}")
+        self._run(self._compose_command("run", "--rm", "ollama-pull"), f"Pulling {model} with retry helper")
 
     def list_models(self) -> None:
         self._run(self._compose_command("exec", "ollama", "ollama", "list"), "Listing Ollama models")

@@ -17,16 +17,47 @@ services:
       - "8765:8765"
     depends_on:
       ollama:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
 
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama:${OLLAMA_IMAGE_TAG:-latest}
     ports:
       - "11434:11434"
     volumes:
       - ollama-data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
     restart: unless-stopped
+
+  ollama-pull:
+    image: ollama/ollama:${OLLAMA_IMAGE_TAG:-latest}
+    profiles: ["tools"]
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:7b}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -eu
+        echo "Pulling $${OLLAMA_MODEL} from Ollama into the shared ollama-data volume"
+        for attempt in 1 2 3 4 5; do
+          if ollama pull "$${OLLAMA_MODEL}"; then
+            echo "Pulled $${OLLAMA_MODEL}"
+            exit 0
+          fi
+          echo "Pull failed on attempt $${attempt}; retrying after $${attempt}0 seconds..."
+          sleep "$${attempt}0"
+        done
+        echo "Failed to pull $${OLLAMA_MODEL} after 5 attempts" >&2
+        exit 1
 
 volumes:
   ollama-data:
